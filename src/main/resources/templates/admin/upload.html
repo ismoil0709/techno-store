@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Upload</title>
+</head>
+<body>
+<form action="/admin/upload" method="post" enctype="multipart/form-data">
+    <label>
+        Title : <input type="text" name="title">
+    </label>
+     <label>
+        Description : <input type="text" name="description">
+    </label>
+    <label>
+        Price : <input type="number" step="any" name="price">
+    </label>
+     <label>
+        Product Type <select name="productType">
+             <option value="PHONE">PHONE</option>
+         </select>
+    </label>
+     <label>
+        Amount : <input type="number" name="amount">
+    </label>
+     <label>
+        Img : <input type="file" name="file">
+    </label>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

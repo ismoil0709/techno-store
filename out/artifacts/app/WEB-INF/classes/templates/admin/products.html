@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org/"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<div>
+    <table>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th><label for="title">Title</label></th>
+            <th><label for="description">Description</label></th>
+            <th><label for="price">Price</label></th>
+            <th><label for="isAvailable">Is available</label></th>
+            <th><label for="type">Type</label></th>
+            <th><label for="amount">Amount</label></th>
+        </tr>
+        <tr th:each="product,stat : ${products}">
+            <td th:text="${stat.count}">></td>
+            <td id="id" th:text="${product.id}"></td>
+            <td><input id="title" type="text" name="title" th:value="${product.title}"></td>
+            <td><input id="description" type="text" name="description" th:value="${product.description}"></td>
+            <td><input id="price" type="text" name="price" th:value="${product.price}"></td>
+            <td><select id="isAvailable" name="isAvailable">
+                <option value="true" th:text="${product.isAvailable}"></option>
+                <option value="false" th:text="${!product.isAvailable}"></option>
+            </select></td>
+            <td>
+                <select id="type" name="productType">
+                    <option th:each="type : ${allTypes}" th:selected="${type==product.productType}" th:value="${type}" th:text="${type}"></option>
+                </select>
+            </td>
+            <td><input id="amount" type="text" name="amount" th:value="${product.amount}"></td>
+            <td><button onclick="updateProduct(event)">Save Changes</button></td>
+        </tr>
+    </table>
+    <button onclick="location.reload()">Reset</button>
+    <button onclick="window.location.href='/'">Back</button>
+</div>
+</body>
+<script>
+    function updateProduct(event){
+        event.preventDefault();
+
+        const formData = new FormData();
+
+        const id = document.getElementById('id').innerText;
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const isAvailable = document.getElementById('isAvailable').value;
+        const productType = document.getElementById('type').value;
+        const amount = document.getElementById('amount').value;
+
+        formData.append('id',id);
+        formData.append('title',title);
+        formData.append('description',description);
+        formData.append('price',price);
+        formData.append('isAvailable',isAvailable);
+        formData.append('productType',productType);
+        formData.append('amount',amount);
+
+
+        const response = fetch('/admin/update/product', {
+            method: 'PATCH',
+            body: formData,
+        });
+
+        if (response.ok) {
+            alert("Save");
+        } else {
+            alert('Failed');
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<nav>
+    <a href="/basket?id=1"><button>Basket</button></a>
+    <a href="/basket?id=1"><button>My Card</button></a>
+    <a href="/basket?id=1"><button>My Orders</button></a>
+    <a href="/basket?id=1"><button>Liked Products</button></a>
+    <form action="/profile/photo/2" method="post" enctype="multipart/form-data">
+        <label>
+            Upload Avatar: <input type="file" name="file">
+        </label>
+        <button type="submit">Submit</button>
+    </form>
+    <a  href="/profile/download/photo"><button>Download your Avatar</button></a>
+
+</nav>
+</body>
+</html>

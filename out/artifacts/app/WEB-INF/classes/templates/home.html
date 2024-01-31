@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<header>
+    <a href="/"><button>Home</button></a>
+    <a sec:authorize="hasAuthority('SHOW USERS')" href="/admin/users"><button>All Users</button></a>
+    <a sec:authorize="hasAuthority('SHOW PRODUCTS')" href="/admin/products"><button>All Products</button></a>
+    <a sec:authorize="hasAuthority('ADD ROLE')" href="/admin/add_role"><button>Add new Role</button></a>
+        <a sec:authorize="hasAuthority('ADD PERMISSION')" href="/admin/add_permission"><button>Add new Permission</button></a>
+    <a sec:authorize="hasRole('ADMIN')" href="/admin/upload"><button>Upload new product</button></a>
+    <a sec:authorize="isAnonymous()" href="/auth/login"><button>Login</button></a>
+    <a sec:authorize="isAnonymous()" href="/auth/register"><button>Register</button></a>
+    <a sec:authorize="isAuthenticated()" th:href="@{/profile(id=${userId})}"><button>Profile</button></a>
+    <form action="/search" method="post">
+
+        <label>
+            <input type="text" name="search_text">
+        </label>
+        <button type="submit">Search</button>
+    </form>
+</header>
+<section>
+    <table th:each="product : ${products}">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.title}"></td>
+            <td th:text="${product.price}"></td>
+            <td><a th:href="@{/product(id=${product.id})}">
+                <button>Buy</button>
+            </a></td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
